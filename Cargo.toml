@@ -111,6 +111,7 @@ members = [
   "lib/k8s-e2e-tests",
   "lib/k8s-test-framework",
   "lib/loki-logproto",
+  "lib/my-vector-proto",
   "lib/portpicker",
   "lib/prometheus-parser",
   "lib/opentelemetry-proto",
@@ -761,6 +762,7 @@ sinks-logs = [
   "sinks-socket",
   "sinks-splunk_hec",
   "sinks-vector",
+  "sinks-my_vector",
   "sinks-webhdfs",
   "sinks-websocket",
   "sinks-websocket-server",
@@ -779,6 +781,7 @@ sinks-metrics = [
   "sinks-sematext",
   "sinks-statsd",
   "sinks-vector",
+  "sinks-my_vector",
   "sinks-splunk_hec"
 ]
 
@@ -833,6 +836,7 @@ sinks-splunk_hec = []
 sinks-statsd = ["sinks-utils-udp", "tokio-util/net"]
 sinks-utils-udp = []
 sinks-vector = ["sinks-utils-udp", "dep:tonic", "protobuf-build", "dep:prost"]
+sinks-my_vector = ["sinks-utils-udp", "dep:tonic", "protobuf-build", "dep:prost"]
 sinks-websocket = ["dep:tokio-tungstenite"]
 sinks-websocket-server = ["dep:tokio-tungstenite", "sources-utils-http-auth", "sources-utils-http-error", "sources-utils-http-prelude"]
 sinks-webhdfs = ["dep:opendal"]

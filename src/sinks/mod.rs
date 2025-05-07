@@ -108,6 +108,8 @@ pub mod splunk_hec;
 pub mod statsd;
 #[cfg(feature = "sinks-vector")]
 pub mod vector;
+#[cfg(feature = "sinks-my_vector")]
+pub mod my_vector;
 #[cfg(feature = "sinks-webhdfs")]
 pub mod webhdfs;
 #[cfg(feature = "sinks-websocket")]
@@ -137,6 +139,14 @@ pub enum BuildError {
 /// Common healthcheck errors
 #[derive(Debug, Snafu)]
 pub enum HealthcheckError {
-    #[snafu(display("Unexpected status: {}", status))]
-    UnexpectedStatus { status: ::http::StatusCode },
+    #[snafu(display("Unable to resolve DNS for {:?}", address))]
+    DnsFailure { address: String },
+    #[snafu(display("DNS errored {}", source))]
+    DnsError { source: crate::dns::DnsError },
+    #[snafu(display("Socket address problem: {}", source))]
+    SocketAddressError { source: std::io::Error },
+    #[snafu(display("URI parse error: {}", source))]
+    UriParseError { source: ::http::uri::InvalidUri },
+    #[snafu(display("HTTP request build error: {}", source))]
+    HTTPRequestBuilderError { source: ::http::Error },
 }
